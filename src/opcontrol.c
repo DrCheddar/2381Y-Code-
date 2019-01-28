@@ -10,49 +10,126 @@
 #include "main.h"
 #include "API.h"
 #include <math.h>
+#include "util.h"
+#include "autoFunctions.h"
 
-/*
- * Runs the user operator control code. This function will be started in its own task with the
- * default priority and stack size whenever the robot is enabled via the Field Management System
- * or the VEX Competition Switch in the operator control mode. If the robot is disabled or
- * communications is lost, the operator control task will be stopped by the kernel. Re-enabling
- * the robot will restart the task, not resume it from where it left off.
- *
- * If no VEX Competition Switch or Field Management system is plugged in, the VEX Cortex will
- * run the operator control task. Be warned that this will also occur if the VEX Cortex is
- * tethered directly to a computer via the USB A to A cable without any VEX Joystick attached.
- *
- * Code running in this task can take almost any action, as the VEX Joystick is available and
- * the scheduler is operational. However, proper use of delay() or taskDelayUntil() is highly
- * recommended to give other tasks (including system tasks such as updating LCDs) time to run.
- *
- * This task should never exit; it should end with some kind of infinite loop, even if empty.
- */
+
+  #include "util.h"
+  #include <math.h>
+  int a=1;
+  void taskAuto( void * parameter );
+  void taskCat( void * parameter );
+//void taskLoad( void * parameter );
+//void taskDrive( void * parameter );
+//void taskIntake( void * parameter);
+
 void operatorControl() {
-	while (1) {
-		motorSet(2, joystickGetAnalog(1, 3) + joystickGetAnalog(1, 4)/2);
-		motorSet(3, joystickGetAnalog(1, 3) + joystickGetAnalog(1, 4)/2);
-		motorSet(4, joystickGetAnalog(1, 3) + joystickGetAnalog(1, 4)/2);
-		// The things are inverted
-		motorSet(7, -joystickGetAnalog(1, 3) + joystickGetAnalog(1, 4)/2);
-		motorSet(8, -joystickGetAnalog(1, 3) +joystickGetAnalog(1, 4)/2);
-		motorSet(9, -joystickGetAnalog(1, 3) +joystickGetAnalog(1, 4)/2);
-
-		motorSet(10, joystickGetDigital(1, 5, JOY_UP) * 50 -joystickGetDigital(1, 5, JOY_DOWN) * 50);
 
 
 
-	/*	motorSet(1, joystickGetDigital(1, 7, JOY_UP)* 127);
-		motorSet(2, joystickGetDigital(1, 7, JOY_DOWN)* 127);
-		motorSet(3, joystickGetDigital(1, 7, JOY_LEFT)* 127);
-		motorSet(4, joystickGetDigital(1, 7, JOY_RIGHT)* 127);
+    TaskHandle autoTaskHandle = taskCreate( taskAuto, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+  //TaskHandle driveTaskHandle = taskCreate( taskDrive, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+  //TaskHandle loadTaskHandle = taskCreate( taskLoad, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+  //TaskHandle intakeTaskHandle = taskCreate( taskIntake, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
 
-		motorSet(7, joystickGetDigital(1, 8, JOY_UP)* 127);
-		motorSet(8, joystickGetDigital(1, 8, JOY_DOWN)* 127);
-		motorSet(9, joystickGetDigital(1, 8, JOY_LEFT)* 127);
-		motorSet(10, joystickGetDigital(1, 8, JOY_RIGHT)* 127);
-*/ 
-		delay(20);
+  }
 
-	}
+int cataLoad = 0;
+void taskLoad( void * parameter ) {
+    while ( true ) {
+
+      if  (joystickGetDigital(1, 8, JOY_DOWN) == 1 && digitalRead(LIMIT_SWITCH) == HIGH)   {
+           cataLoad = 1;
+      }
+      //if catapult is not touching the switch
+        if ( digitalRead(1) == LOW) {
+          cataLoad = 0;
+        }
+      setCat(cataLoad * - 50);
+
+      if (joystickGetDigital(1, 8,JOY_RIGHT) == 1 && digitalRead(1) == LOW){
+           setCat(50);
+           delay(1000);
+           setCat(0);
+       }
+          delay( 20 );
+  }
 }
+
+
+
+void taskDrive( void * parameter ) {
+  while ( true ) {
+
+        double factor = abs( joystickGetAnalog( JOY_MASTER, AXIS_LEFT_V ) ) / 127.0 ;
+
+        double left = joystickGetAnalog( JOY_MASTER, AXIS_LEFT_V ) + joystickGetAnalog( JOY_MASTER, AXIS_RIGHT_H ) * ( 0.4 + 0.3 * sqrt( factor ) );
+
+        double right = - joystickGetAnalog( JOY_MASTER, AXIS_LEFT_V ) + joystickGetAnalog( JOY_MASTER, AXIS_RIGHT_H ) * ( 0.4 + 0.3 * sqrt( factor ) );
+
+        setDriveLeft( left );
+        setDriveRight( right );
+  }
+        delay( 20 );
+}
+
+void taskIntake( void * parameter){
+
+    while ( true ) {
+          int intake = joystickGetDigital( JOY_MASTER, 5, JOY_UP) - joystickGetDigital(JOY_MASTER, 5, JOY_DOWN);
+          setIntake(100* intake);
+          delay( 20 );
+        }
+      }
+
+
+
+
+      void taskCat( void * parameter ){
+
+        while(true){
+
+        if  (digitalRead(LIMIT_SWITCH) == HIGH)   {
+           setCat(48);
+        }
+        //if catapult is not touching the switch
+        else if ( digitalRead(LIMIT_SWITCH) == LOW) {
+          setCat(15);
+        }
+
+      }
+
+
+      }
+
+  void taskAuto( void * parameter){
+
+
+      while(true){
+
+
+  //    TaskHandle catTaskHandle = taskCreate( taskCat, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+  //    delay(2000);
+  //    taskDelete(catTaskHandle);
+    //  delay(50);
+    //  launchCat();
+      delay(500);
+    //  driveStraight(127, 1250);
+     driveBackwards(127, 1900);
+        driveTurn(-127, -127, 320);
+      driveStraight(127, 1400);
+      delay(1000000);
+  }
+}
+
+/*    if(joystickGetDigital(1, 5, JOY_UP)){
+    setIntake(127);
+
+    }
+
+    else if(joystickGetDigital(1, 5, JOY_DOWN))
+    setIntake(-127);
+
+    }
+    delay( 20 );
+  }*/
