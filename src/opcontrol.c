@@ -38,6 +38,7 @@ int autonSwitch = 0;
 //void taskAutonSwitch(void * parameter);
 
 void taskAuto( void * parameter);
+void taskAutoB( void * parameter);
 void taskLoad( void * parameter );
 void taskDrive( void * parameter );
 void taskIntake( void * parameter);
@@ -59,11 +60,13 @@ void operatorControl() {
 
 
   //TaskHandle driveTaskHandle = taskCreate( taskDrive, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
-  TaskHandle loadTaskHandle = taskCreate( taskLoad, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+  //TaskHandle loadTaskHandle = taskCreate( taskLoad, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
   //TaskHandle intakeTaskHandle = taskCreate( taskIntake, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
   //TaskHandle resetTaskHandle = taskCreate( taskReset, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
 
-//  TaskHandle autoTaskHandle = taskCreate( taskAuto, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+  //TaskHandle autoTaskHandle = taskCreate( taskAuto, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+  TaskHandle autoBTaskHandle = taskCreate( taskAuto, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+
   }
 
 
@@ -154,7 +157,7 @@ void taskAutoB( void * parameter){
         launchCat();*/
         delay(500);
         driveBackEncoder(100, 500);
-        flipCap();
+        StartIntake();
         delay(200);
         driveTurnEncoder(100, 200);
         flipCap();
