@@ -52,12 +52,12 @@ void operatorControl();
 #define OSE_DRIVE_LEFT_BOTTOM 2
 #define OSE_DRIVE_RIGHT_TOP 7
 #define OSE_DRIVE_RIGHT_BOTTOM 8
-
+#define OSE_CATA_TOP 3
+#define OSE_CATA_BOTTOM 4
 
 Encoder driveLeftOSE;
 Encoder driveRightOSE;
-
-
+Encoder cataOSE;
 
 
 

@@ -58,18 +58,36 @@ void operatorControl() {
   //}
 
 
-  TaskHandle driveTaskHandle = taskCreate( taskDrive, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
-  TaskHandle loadTaskHandle = taskCreate( taskLoad, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
-  TaskHandle intakeTaskHandle = taskCreate( taskIntake, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
-  TaskHandle resetTaskHandle = taskCreate( taskReset, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+//  TaskHandle driveTaskHandle = taskCreate( taskDrive, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+//  TaskHandle loadTaskHandle = taskCreate( taskLoad, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+//  TaskHandle intakeTaskHandle = taskCreate( taskIntake, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+//  TaskHandle resetTaskHandle = taskCreate( taskReset, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
 
 //  TaskHandle autoTaskHandle = taskCreate( taskAuto, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
-
-
-
-
-
   }
+
+
+int CatP[] = {0, 0};
+
+void taskLoad( void * parameter ) {
+      while ( true ) {
+
+        if  (getCataOSE()< CatP[0] )   {
+          setCat(45);
+        }
+        //if catapult is not touching the switch
+    	 else  if ( getCataOSE() == CatP[1]) {
+    		setCat(15);
+    	  }
+
+        if (joystickGetDigital(1, 6,JOY_UP) && getCataOSE() == CatP[1]){
+
+    	     setCat(100);//shoot
+    	  }
+       	  delay( 20 );
+    }
+  }
+
 
 
   void taskCat( void * parameter ){
@@ -226,7 +244,7 @@ void taskIntake( void * parameter){
     while ( true ) {
           int intake = joystickGetDigital( JOY_MASTER, 5, JOY_UP) - joystickGetDigital(JOY_MASTER, 5, JOY_DOWN);
           setIntake(127* intake);
-          delay( 200 );
+          delay(20);
         }
 
 }
@@ -251,25 +269,7 @@ void taskReset( void * parameter){
 }
 
 
-/*void taskLoad( void * parameter ) {
-    while ( true ) {
 
-      if  (analogRead(POT_2)< CatP[1] )   {
-        setCat(45);
-      }
-      //if catapult is not touching the switch
-  	 else  if ( analogRead(POT_2) == CatP[1]) {
-  		setCat(15);
-  	  }
-
-      if (joystickGetDigital(1, 6,JOY_UP) && analogRead(POT_2) == CatP[1]){
-
-  	     setCat(100);//shoot
-  	  }
-     	  delay( 20 );
-  }
-}
-*/
 
 /*void taskAutonSwitch( void * parameter){
   while(true){
@@ -288,7 +288,7 @@ void taskReset( void * parameter){
 
 
 
-/*    if(joystickGetDigital(1, 5, JOY_UP)){
+   if(joystickGetDigital(1, 5, JOY_UP)){
     setIntake(127);
 
     }

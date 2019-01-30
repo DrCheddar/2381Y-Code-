@@ -10,3 +10,4 @@ void issueMotors ( int speed, int mircoSec);
 void driveEncoder (int speed, int distance);
 
 int getRightOSE();
+int getCataOSE();

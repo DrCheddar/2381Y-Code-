@@ -48,3 +48,7 @@ void setAutoDriveRight ( int speed ) {
 int getRightOSE() {
 	return encoderGet( driveRightOSE );
 }
+
+int getCataOSE() {
+	return encoderGet(cataOSE) % 360;
+}
