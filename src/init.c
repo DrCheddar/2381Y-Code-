@@ -34,4 +34,8 @@ void initializeIO() {
  * can be implemented in this task if desired.
  */
 void initialize() {
+
+    driveLeftOSE = encoderInit(OSE_DRIVE_LEFT_TOP, OSE_DRIVE_LEFT_BOTTOM, true);
+    driveRightOSE = encoderInit(OSE_DRIVE_RIGHT_TOP, OSE_DRIVE_RIGHT_BOTTOM, true);
+
 }
