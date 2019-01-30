@@ -14,23 +14,22 @@
 #include "autoFunctions.h"
 
 
-  #include "util.h"
-  #include <math.h>
+
   int a=1;
   void taskAuto( void * parameter );
   void taskCat( void * parameter );
-//void taskLoad( void * parameter );
-//void taskDrive( void * parameter );
-//void taskIntake( void * parameter);
+  void taskLoad( void * parameter );
+  void taskDrive( void * parameter );
+  void taskIntake( void * parameter);
 
 void operatorControl() {
 
 
 
-    TaskHandle autoTaskHandle = taskCreate( taskAuto, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
-  //TaskHandle driveTaskHandle = taskCreate( taskDrive, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
-  //TaskHandle loadTaskHandle = taskCreate( taskLoad, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
-  //TaskHandle intakeTaskHandle = taskCreate( taskIntake, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+  //  TaskHandle autoTaskHandle = taskCreate( taskAuto, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+  TaskHandle driveTaskHandle = taskCreate( taskDrive, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+  TaskHandle loadTaskHandle = taskCreate( taskLoad, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+  TaskHandle intakeTaskHandle = taskCreate( taskIntake, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
 
   }
 
@@ -38,21 +37,21 @@ int cataLoad = 0;
 void taskLoad( void * parameter ) {
     while ( true ) {
 
-      if  (joystickGetDigital(1, 8, JOY_DOWN) == 1 && digitalRead(LIMIT_SWITCH) == HIGH)   {
-           cataLoad = 1;
-      }
+
+      setCat(40 * joystickGetDigital(1, 6, JOY_DOWN) - 30 * joystickGetDigital(1, 8, JOY_DOWN)) ;
+
       //if catapult is not touching the switch
         if ( digitalRead(1) == LOW) {
-          cataLoad = 0;
+          setCat(20);
         }
-      setCat(cataLoad * - 50);
 
-      if (joystickGetDigital(1, 8,JOY_RIGHT) == 1 && digitalRead(1) == LOW){
-           setCat(50);
-           delay(1000);
+
+      if (joystickGetDigital(1, 6, JOY_UP)  == 1 && digitalRead(1) == LOW){
+           setCat(40);
+           delay(500);
            setCat(0);
        }
-          delay( 20 );
+        delay( 20 );
   }
 }
 
