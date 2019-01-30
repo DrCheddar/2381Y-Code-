@@ -59,7 +59,7 @@ void driveBackwards(int speed, int microSec){
 
  void driveStraight(int speed, int microSec){
 
-     setDriveLeft(speed);
+     setDriveLeft(speed* 0.9);
      setDriveRight(-speed);
 
      delay(microSec);
@@ -90,7 +90,7 @@ encoderReset(driveRightOSE);
 
      if ( getRightOSE() > -distance ) {
 
-       setDriveLeft( -speed );
+       setDriveLeft( -speed*0.9);
        setDriveRight( speed);
      }
 
@@ -121,13 +121,43 @@ encoderReset(driveRightOSE);
 
      if ( getRightOSE() > -distance ) {
 
-     setDriveLeft( speed );
+     setDriveLeft( speed *0.9);
      setDriveRight( speed);
 
    } else {
 
        setDriveLeft( -40 );
        setDriveRight( -40 );
+
+       delay( 40 );
+
+       setDriveLeft( 0 );
+       setDriveRight( 0 );
+
+       break;
+
+     }
+
+     delay( 20 );
+
+   }
+}
+
+void driveTurnLeftEncoder(int speed, int distance){
+
+encoderReset(driveRightOSE);
+
+   while ( true ) {
+
+     if ( getRightOSE() < distance ) {
+
+     setDriveLeft( -speed *0.9);
+     setDriveRight( -speed);
+
+   } else {
+
+       setDriveLeft( 40 );
+       setDriveRight( 40 );
 
        delay( 40 );
 

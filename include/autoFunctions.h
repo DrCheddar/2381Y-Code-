@@ -18,3 +18,5 @@ void driveEncoder(int speed, int distance);
 void driveBackEncoder(int speed, int distance);
 
 void driveTurnEncoder(int speed, int distance);
+
+void driveTurnLeftEncoder(int speed, int distance);

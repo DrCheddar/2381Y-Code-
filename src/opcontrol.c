@@ -59,20 +59,20 @@ void operatorControl() {
   //}
 
 
-  //TaskHandle driveTaskHandle = taskCreate( taskDrive, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
-  //TaskHandle loadTaskHandle = taskCreate( taskLoad, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
-  //TaskHandle intakeTaskHandle = taskCreate( taskIntake, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
-  //TaskHandle resetTaskHandle = taskCreate( taskReset, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
-
-  //TaskHandle autoTaskHandle = taskCreate( taskAuto, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
-  TaskHandle autoBTaskHandle = taskCreate( taskAuto, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+  /*TaskHandle driveTaskHandle = taskCreate( taskDrive, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+  TaskHandle loadTaskHandle = taskCreate( taskLoad, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+  TaskHandle intakeTaskHandle = taskCreate( taskIntake, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+  TaskHandle resetTaskHandle = taskCreate( taskReset, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+*/
+  TaskHandle autoTaskHandle = taskCreate( taskAuto, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+  //TaskHandle autoBTaskHandle = taskCreate( taskAutoB, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
 
   }
 
 
 
 
-void taskLoad( void * parameter ) {
+/*void taskLoad( void * parameter ) {
       while ( true ) {
 
         if  (getCataOSE()< 0 )   {
@@ -90,7 +90,7 @@ void taskLoad( void * parameter ) {
        	  delay( 20 );
     }
   }
-
+*/
 
 
   void taskCat( void * parameter ){
@@ -128,7 +128,7 @@ void taskAuto( void * parameter){
 
         while(true){
         TaskHandle catTaskHandle = taskCreate( taskCat, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
-        delay(2000);
+        delay(2700);
         taskDelete(catTaskHandle);
         delay(50);
         launchCat();
@@ -136,7 +136,6 @@ void taskAuto( void * parameter){
         driveEncoder(80, 1200);
         delay(500);
         driveBackEncoder(80, 1800);
-
         driveTurnEncoder(85, 230);
         driveEncoder(127,1850);
 
@@ -157,7 +156,7 @@ void taskAutoB( void * parameter){
         launchCat();*/
         delay(500);
         driveBackEncoder(100, 500);
-        StartIntake();
+        startIntake();
         delay(200);
         driveTurnEncoder(100, 200);
         flipCap();
@@ -165,21 +164,7 @@ void taskAutoB( void * parameter){
         driveTurnEncoder(100, 200);
       }
     }
-        //  TaskHandle catTaskHandle = taskCreate( taskCat, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
-      /*    delay(2000);
-          taskDelete(catTaskHandle);
 
-
-    //    delay(100000);
-    //    delay(1500);
-    //    driveBackwards(127, 1900);
-    //    driveTurn(-127, -127, 320);
-    //    driveStraight(127, 1400);
-        delay(1000000);
-
-
-  }
-}
 
 //int posPotDiv[4] = { 0, 1023, 2047, 4095};
 //int posPotDiv[4] = { 0, 1023, 2047, 4095};
@@ -200,7 +185,6 @@ void taskLoad( void * parameter ) {
   		setCat(15);
 
   	  }
-
 
       if (joystickGetDigital(1, 6,JOY_UP) && digitalRead(LIMIT_SWITCH) == LOW){
 
