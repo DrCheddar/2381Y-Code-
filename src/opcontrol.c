@@ -34,6 +34,7 @@
   #include "autoFunctions.h"
 
 int autonSwitch = 0;
+int mode = 0;
 
 //void taskAutonSwitch(void * parameter);
 
@@ -103,32 +104,28 @@ void taskStraight( void * parameter){
 }
 
 
-void taskAuto( void * parameter){
+//void taskAuto( void * parameter){
 
-        while(true){
+  //      while(mode==1){
       //  TaskHandle catTaskHandle = taskCreate( taskCat, TASK_DEFAULT_STACK_SIZE, NULL QASWER5T6Y780-  qw4rt5678 TASK_PRIORITY_DEFAULT );
     /*    delay(2000);
         taskDelete(catTaskHandle);
         delay(50);
         launchCat();
-        delay(500);*/
-        driveEncoder(80, 1200);
+        delay(500);*
+  /*      driveEncoder(80, 1200);
         delay(500);
         driveBackEncoder(80, 1800);
 
         driveTurnEncoder(85, 230);
         driveEncoder(127,1850);
 
-    //    delay(100000);
-    //    delay(1500);
-    //    driveBackwards(127, 1900);
-    //    driveTurn(-127, -127, 320);
-    //    driveStraight(127, 1400);
+
         delay(1000000);
 
 
   }
-}
+}*/
 
 //void taskAutoB( void * parameter){
 
@@ -139,7 +136,7 @@ void taskAuto( void * parameter){
         delay(50);
         launchCat();
         delay(500);*/
-      /*  driveBackEncoder(100, 500);
+  /*     driveBackEncoder(100, 500);
         flipCap();
         delay(200);
         driveTurnEncoder(100, 200);
@@ -147,22 +144,10 @@ void taskAuto( void * parameter){
         driveBackEncoder(100, 500);
         driveTurnEncoder(100, 200);
       }
-    }
-        //  TaskHandle catTaskHandle = taskCreate( taskCat, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
-      /*    delay(2000);
-          taskDelete(catTaskHandle);
+    }*/
 
-
-    //    delay(100000);
-    //    delay(1500);
-    //    driveBackwards(127, 1900);
-    //    driveTurn(-127, -127, 320);
-    //    driveStraight(127, 1400);
-        delay(1000000);
-
-
-  }
-}
+//  }
+//}
 
 //int posPotDiv[4] = { 0, 1023, 2047, 4095};
 //int posPotDiv[4] = { 0, 1023, 2047, 4095};
@@ -231,7 +216,6 @@ void taskIntake( void * parameter){
 
 }
 
-int CatP[2] = {0, 4095};
 
 
 
