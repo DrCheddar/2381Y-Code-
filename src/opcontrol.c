@@ -58,29 +58,29 @@ void operatorControl() {
   //}
 
 
-//  TaskHandle driveTaskHandle = taskCreate( taskDrive, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
-//  TaskHandle loadTaskHandle = taskCreate( taskLoad, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
-//  TaskHandle intakeTaskHandle = taskCreate( taskIntake, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
-//  TaskHandle resetTaskHandle = taskCreate( taskReset, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+  //TaskHandle driveTaskHandle = taskCreate( taskDrive, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+  TaskHandle loadTaskHandle = taskCreate( taskLoad, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+  //TaskHandle intakeTaskHandle = taskCreate( taskIntake, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+  //TaskHandle resetTaskHandle = taskCreate( taskReset, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
 
 //  TaskHandle autoTaskHandle = taskCreate( taskAuto, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
   }
 
 
-int CatP[] = {0, 0};
+
 
 void taskLoad( void * parameter ) {
       while ( true ) {
 
-        if  (getCataOSE()< CatP[0] )   {
+        if  (getCataOSE()< 0 )   {
           setCat(45);
         }
         //if catapult is not touching the switch
-    	 else  if ( getCataOSE() == CatP[1]) {
+    	 else  if ( getCataOSE() == 100) {
     		setCat(15);
     	  }
 
-        if (joystickGetDigital(1, 6,JOY_UP) && getCataOSE() == CatP[1]){
+        if (joystickGetDigital(1, 6,JOY_UP) && getCataOSE() == 100){
 
     	     setCat(100);//shoot
     	  }
@@ -124,12 +124,12 @@ void taskStraight( void * parameter){
 void taskAuto( void * parameter){
 
         while(true){
-      //  TaskHandle catTaskHandle = taskCreate( taskCat, TASK_DEFAULT_STACK_SIZE, NULL QASWER5T6Y780-  qw4rt5678 TASK_PRIORITY_DEFAULT );
-    /*    delay(2000);
+        TaskHandle catTaskHandle = taskCreate( taskCat, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+        delay(2000);
         taskDelete(catTaskHandle);
         delay(50);
         launchCat();
-        delay(500);*/
+        delay(500);
         driveEncoder(80, 1200);
         delay(500);
         driveBackEncoder(80, 1800);
@@ -137,27 +137,23 @@ void taskAuto( void * parameter){
         driveTurnEncoder(85, 230);
         driveEncoder(127,1850);
 
-    //    delay(100000);
-    //    delay(1500);
-    //    driveBackwards(127, 1900);
-    //    driveTurn(-127, -127, 320);
-    //    driveStraight(127, 1400);
+
         delay(1000000);
 
 
   }
 }
 
-//void taskAutoB( void * parameter){
+void taskAutoB( void * parameter){
 
-    //    while(true){
-      //  TaskHandle catTaskHandle = taskCreate( taskCat, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
-    /*    delay(2000);
+        while(true){
+    /*   TaskHandle catTaskHandle = taskCreate( taskCat, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+        delay(2000);
         taskDelete(catTaskHandle);
         delay(50);
-        launchCat();
-        delay(500);*/
-      /*  driveBackEncoder(100, 500);
+        launchCat();*/
+        delay(500);
+        driveBackEncoder(100, 500);
         flipCap();
         delay(200);
         driveTurnEncoder(100, 200);

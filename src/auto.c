@@ -33,7 +33,7 @@ void autonomous() {
 
 
 //if ( analogRead( POT_AUTON_1 ) > posPotDiv[0] && analogRead( POT_AUTON_1 ) < posPotDiv[1] ) {
-TaskHandle autoTaskHandle = taskCreate( taskAuto, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+//TaskHandle autoTaskHandle = taskCreate( taskAuto, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
 //}
 
 
