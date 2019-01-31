@@ -90,8 +90,8 @@ encoderReset(driveRightOSE);
 
      if ( getRightOSE() > -distance ) {
 
-       setDriveLeft( -speed );
-       setDriveRight( speed);
+       setDriveLeft( -speed *0.95 );
+       setDriveRight( speed );
      }
 
      else{
@@ -121,7 +121,7 @@ encoderReset(driveRightOSE);
 
      if ( getRightOSE() > -distance ) {
 
-     setDriveLeft( speed );
+     setDriveLeft( speed *0.95 );
      setDriveRight( speed);
 
    } else {
@@ -182,7 +182,7 @@ encoderReset(driveRightOSE);
 
      if ( getRightOSE() < distance ) {
 
-     setDriveLeft( speed );
+     setDriveLeft( speed *0.95);
      setDriveRight( -speed);
 
    } else {
