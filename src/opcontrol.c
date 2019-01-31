@@ -62,9 +62,9 @@ void taskDrive( void * parameter ) {
 
         double factor = abs( joystickGetAnalog( JOY_MASTER, AXIS_LEFT_V ) ) / 127.0 ;
 
-        double left = joystickGetAnalog( JOY_MASTER, AXIS_LEFT_V ) + joystickGetAnalog( JOY_MASTER, AXIS_RIGHT_H ) * ( 0.4 + 0.3 * sqrt( factor ) );
+        double left = joystickGetAnalog( JOY_MASTER, AXIS_LEFT_V ) + joystickGetAnalog( JOY_MASTER, AXIS_RIGHT_H ) * ( 0.4 + 0.4 *  factor * factor);
 
-        double right = - joystickGetAnalog( JOY_MASTER, AXIS_LEFT_V ) + joystickGetAnalog( JOY_MASTER, AXIS_RIGHT_H ) * ( 0.4 + 0.3 * sqrt( factor ) );
+        double right = - joystickGetAnalog( JOY_MASTER, AXIS_LEFT_V ) + joystickGetAnalog( JOY_MASTER, AXIS_RIGHT_H ) * ( 0.4 + 0.4 *  factor * factor );
 
         setDriveLeft( left );
         setDriveRight( right );
