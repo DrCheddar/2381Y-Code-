@@ -1,3 +1,4 @@
+
 /** @file auto.c
  * @brief File for autonomous code
  *
@@ -8,26 +9,187 @@
  */
 
 #include "main.h"
+#include "autoFunctions.h"
 #include "util.h"
-#include "API.h"
-/*
- * Runs the user autonomous code. This function will be started in its own task with the default
- * priority and stack size whenever the robot is enabled via the Field Management System or the
- * VEX Competition Switch in the autonomous mode. If the robot is disabled or communications is
- * lost, the autonomous task will be stopped by the kernel. Re-enabling the robot will restart
- * the task, not re-start it from where it left off.
- *
- * Code running in the autonomous task cannot access information from the VEX Joystick. However,
- * the autonomous function can be invoked from another task if a VEX Competition Switch is not
- * available, and it can access joystick information if called in this way.
- *
- * The autonomous task may exit, unlike operatorControl() which should never exit. If it does
- * so, the robot will await a switch to another mode or disable/enable cycle.
- */
+
+#include <math.h>
+#include "autoFunctions.h"
+
+
+//void taskAutonSwitch(void * parameter);
+void taskAuto( void * parameter);
+void taskAutoB( void * parameter);
+void taskCat( void * parameter);
+void taskStraight( void * parameter);
+
+
+
+
 void autonomous() {
-  while ( 1 ) {
-    motorSet( MOT_RDRIVE_3, 127 );
-    setDriveLeft( 50 );
-    delay( 20 );
+
+  int posPotDiv[4] = { 0, 1023, 2047, 4095};
+  int posPot2Div[4] = { 0, 1023, 2047, 4095};
+
+
+
+//if ( analogRead( POT_AUTON_1 ) > posPotDiv[0] && analogRead( POT_AUTON_1 ) < posPotDiv[1] ) {
+//TaskHandle autoTaskHandle = taskCreate( taskAuto, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+//}
+
+
+
+
+}
+
+/*
+
+
+void taskCat( void * parameter ){
+
+  while(true){
+
+  if  (digitalRead(LIMIT_SWITCH) == HIGH)   {
+           setCat(48);
+  }
+        //if catapult is not touching the switch
+  else if ( digitalRead(LIMIT_SWITCH) == LOW) {
+          setCat(15);
+  }
+  delay(20);
 }
 }
+
+void taskStraight( void * parameter){
+while(true){
+if  (digitalRead(BUMP_SWITCH) == HIGH)   {
+    setDriveLeft(127);
+    setDriveRight(-127);
+}
+//if catapult is not touching the switch
+else if ( digitalRead(LIMIT_SWITCH) == LOW) {
+  setDriveLeft(0);
+  setDriveRight(0);
+}
+delay(20);
+}
+}
+
+
+void taskAuto( void * parameter){
+
+      while(true){
+      /*
+      TaskHandle catTaskHandle = taskCreate( taskCat, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+      delay(2000);
+      taskDelete(catTaskHandle);
+      delay(50);
+      launchCat();
+      delay(500); */
+    //  driveEncoder(50, 1000);
+      /*delay(1500);
+      driveBackwards(127, 1900);
+      driveTurn(-127, -127, 320);
+      driveStraight(127, 1400);
+
+      delay(1000000);
+
+
+}
+}
+
+void taskAutoB( void * parameter){
+
+      while(true){
+      TaskHandle catTaskHandle = taskCreate( taskCat, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+      delay(2000);
+      taskDelete(catTaskHandle);
+      delay(50);
+      launchCat();
+      delay(2000);
+      setCat(0);
+      delay(1000000);
+/*      TaskHandle straightTaskHandle = taskCreate( taskStraight, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+      delay(1500);
+      driveBackwards(127, 1900);
+      driveTurn(-127, -127, 320);
+      driveStraight(127, 1400);
+      delay(1000000); */
+
+//}
+//}
+
+/*void autonomous() {
+
+
+    if ( analogRead( POT_AUTON_1 ) > posPotDiv[1] && analogRead( POT_AUTON_1 ) < posPotDiv[2] )
+
+
+
+  if ( analogRead( POT_AUTON_1 ) > posPotDiv[2] && analogRead( POT_AUTON_1 ) < posPotDiv[3] )
+    TaskHandle autonSwitchTaskHandle = taskCreate( taskAutonSwitch, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+    TaskHandle autonTaskHandle = taskCreate( taskAuton, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+
+
+
+
+  int posPotDiv[4] = { 0, 1023, 2047, 4095}; //pot 2 divisions, front left, front right, back left, back right, none
+
+
+
+  // front right
+  //if ( analogRead( POT_AUTON_1 ) > posPotDiv[0] && analogRead( POT_AUTON_1 ) < posPotDiv[1] ) {
+  }
+
+  void taskCat( void * parameter ){
+
+      while(true){
+
+      if  (digitalRead(LIMIT_SWITCH) == HIGH)   {
+               setCat(48);
+      }
+            //if catapult is not touching the switch
+      else if ( digitalRead(LIMIT_SWITCH) == LOW) {
+              setCat(15);
+      }
+    }
+  }
+
+  void taskStraight( void * parameter){
+    if  (digitalRead(BUMP_SWITCH) == HIGH)   {
+        setDriveLeft(127);
+        setDriveRight(-127);
+    }
+    //if catapult is not touching the switch
+    else if ( digitalRead(LIMIT_SWITCH) == LOW) {
+      setDriveLeft(0);
+      setDriveRight(0);
+    }
+
+  }
+
+
+if ( analogRead( POT_AUTON_1 ) > posPotDiv[0] && analogRead( POT_AUTON_1 ) < posPotDiv[1] ) {
+    if ( analogRead( POT_AUTON_1 ) > posPot2Div[0] && analogRead( POT_AUTON_1 ) < posPotDiv[1] ){
+
+
+          TaskHandle catTaskHandle = taskCreate( taskCat, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+          delay(2000);
+          taskDelete(catTaskHandle);
+          delay(50);
+          launchCat();
+          delay(500);
+          TaskHandle straightTaskHandle = taskCreate( taskStraight, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+          driveBackwards(127, 1900);
+          driveTurn(-127, -127, 320);
+          driveStraight(127, 1400);
+          delay(1000000);
+
+
+    }
+  }
+
+}
+
+*/
+
+  //  if ( analogRead( POT_AUTON_1 ) > posPotDiv[3] && analogRead( POT_AUTON_1 ) < posPotDiv[4] )

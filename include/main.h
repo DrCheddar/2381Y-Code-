@@ -1,3 +1,4 @@
+
 #ifndef MAIN_H_
 
 #define MAIN_H_
@@ -21,6 +22,7 @@ void operatorControl();
 #ifdef __cplusplus
 }
 #endif
+
 #define JOY_MASTER 1
 #define JOY_SLAVE 2
 
@@ -36,16 +38,26 @@ void operatorControl();
 #define MOT_LDRIVE_3 4
 
 #define MOT_CAT 6
-
-
 #define MOT_RDRIVE_1 7
 #define MOT_RDRIVE_2 8
 #define MOT_RDRIVE_3 9
 #define MOT_INTAKE 10
 
 #define LIMIT_SWITCH 1
+#define BUMP_SWITCH 2
+#define POT_AUTON_1 3
+#define POT_AUTON_2 4
 
+#define OSE_DRIVE_LEFT_TOP 1
+#define OSE_DRIVE_LEFT_BOTTOM 2
+#define OSE_DRIVE_RIGHT_TOP 7
+#define OSE_DRIVE_RIGHT_BOTTOM 8
+#define OSE_CATA_TOP 3
+#define OSE_CATA_BOTTOM 4
 
+Encoder driveLeftOSE;
+Encoder driveRightOSE;
+Encoder cataOSE;
 
 
 
