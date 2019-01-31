@@ -172,6 +172,8 @@ void taskAutoD( void * parameter){  //sketchy experimental op skills auto
         delay(500);
         driveEncoder(80, 600);
         delay(500);
+        taskDelete(catTaskHandle2);
+        delay(20);
         launchCat();
         delay(500);
         driveBackEncoder(80, 1200);
