@@ -90,13 +90,8 @@ encoderReset(driveRightOSE);
 
      if ( getRightOSE() > -distance ) {
 
-<<<<<<< HEAD
-       setDriveLeft( -speed*0.9);
-       setDriveRight( speed);
-=======
        setDriveLeft( -speed *0.95 );
        setDriveRight( speed );
->>>>>>> 7239b6524f96d77e75dad550a304222536ee8a25
      }
 
      else{
@@ -126,11 +121,7 @@ encoderReset(driveRightOSE);
 
      if ( getRightOSE() > -distance ) {
 
-<<<<<<< HEAD
-     setDriveLeft( speed *0.9);
-=======
      setDriveLeft( speed *0.95 );
->>>>>>> 7239b6524f96d77e75dad550a304222536ee8a25
      setDriveRight( speed);
 
    } else {
@@ -160,7 +151,7 @@ encoderReset(driveRightOSE);
 
      if ( getRightOSE() < distance ) {
 
-     setDriveLeft( -speed *0.9);
+     setDriveLeft( -speed *0.95);
      setDriveRight( -speed);
 
    } else {
