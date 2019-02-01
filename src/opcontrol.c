@@ -65,6 +65,7 @@ void operatorControl() {
   TaskHandle resetTaskHandle = taskCreate( taskReset, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
 
 //  TaskHandle autoTaskHandle = taskCreate( taskAuto, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+
   //TaskHandle autoBTaskHandle = taskCreate( taskAutoB, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
 
   }
@@ -128,7 +129,7 @@ void taskAuto( void * parameter){
 
         while(true){
         TaskHandle catTaskHandle = taskCreate( taskCat, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
-        delay(3500);
+
         taskDelete(catTaskHandle);
         delay(50);
         launchCat();
@@ -244,6 +245,7 @@ void taskAutoB( void * parameter){
     }
 
 
+
 //int posPotDiv[4] = { 0, 1023, 2047, 4095};
 //int posPotDiv[4] = { 0, 1023, 2047, 4095};
 
@@ -290,9 +292,11 @@ void taskDrive( void * parameter ) {
 
 		double factor = abs( joystickGetAnalog( JOY_MASTER, AXIS_LEFT_V ) ) / 127.0 ;
 
+
 		double left = joystickGetAnalog( JOY_MASTER, AXIS_LEFT_V ) + joystickGetAnalog( JOY_MASTER, AXIS_RIGHT_H ) * ( 0.4 + 0.4 *  factor * factor  );
 
 		double right = - joystickGetAnalog( JOY_MASTER, AXIS_LEFT_V ) + joystickGetAnalog( JOY_MASTER, AXIS_RIGHT_H ) * ( 0.4 + 0.4 *  factor * factor  );
+
 
 		setDriveLeft( left );
 		setDriveRight( right );
