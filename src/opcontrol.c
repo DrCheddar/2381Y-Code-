@@ -59,21 +59,14 @@ void operatorControl() {
   //}
 
 
-<<<<<<< HEAD
-  /*TaskHandle driveTaskHandle = taskCreate( taskDrive, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
-  TaskHandle loadTaskHandle = taskCreate( taskLoad, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
-  TaskHandle intakeTaskHandle = taskCreate( taskIntake, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
-  TaskHandle resetTaskHandle = taskCreate( taskReset, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
-*/
-  TaskHandle autoTaskHandle = taskCreate( taskAuto, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
-=======
+
   TaskHandle driveTaskHandle = taskCreate( taskDrive, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
   TaskHandle loadTaskHandle = taskCreate( taskLoad, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
   TaskHandle intakeTaskHandle = taskCreate( taskIntake, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
-  TaskHandle resetTaskHandle = taskCreate( taskReset, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
+  //TaskHandle resetTaskHandle = taskCreate( taskReset, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
 
 //  TaskHandle autoTaskHandle = taskCreate( taskAuto, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
->>>>>>> 7239b6524f96d77e75dad550a304222536ee8a25
+
   //TaskHandle autoBTaskHandle = taskCreate( taskAutoB, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
 
   }
@@ -137,11 +130,9 @@ void taskAuto( void * parameter){
 
         while(true){
         TaskHandle catTaskHandle = taskCreate( taskCat, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT );
-<<<<<<< HEAD
-        delay(2700);
-=======
+
         delay(3500);
->>>>>>> 7239b6524f96d77e75dad550a304222536ee8a25
+
         taskDelete(catTaskHandle);
         delay(50);
         launchCat();
@@ -177,16 +168,7 @@ void taskAutoB( void * parameter){
         driveTurnEncoder(100, 200);
       }
     }
-<<<<<<< HEAD
 
-=======
-
-
-
-
-    //    driveStraight(127, 1400);
-
->>>>>>> 7239b6524f96d77e75dad550a304222536ee8a25
 
 //int posPotDiv[4] = { 0, 1023, 2047, 4095};
 //int posPotDiv[4] = { 0, 1023, 2047, 4095};
@@ -197,8 +179,8 @@ void taskAutoB( void * parameter){
 void taskLoad( void * parameter ) {
     while ( true ) {
 
-      if  (joystickGetDigital(1, 6, JOY_DOWN) && digitalRead(LIMIT_SWITCH) == HIGH)   {
-        setCat(90);
+      if  (digitalRead(LIMIT_SWITCH) == HIGH)   {
+        setCat(50* joystickGetDigital(1, 6, JOY_DOWN));
 
 
       }
@@ -213,10 +195,7 @@ void taskLoad( void * parameter ) {
   	     setCat(100);//shoot
   	     delay(200);
   	     setCat(0);
-         delay(2000);
-         setCat(-40);//reset
-         delay(3000);
-         setCat(0);
+
 
   	                   }
      	  delay( 20 );
